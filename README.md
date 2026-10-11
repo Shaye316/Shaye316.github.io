@@ -1,19 +1,22 @@
-# Shaye316.github.io
+# Yue Shang (尚跃)
 
-Cling 的个人主页，使用纯 HTML / CSS / JavaScript 构建，可直接通过 GitHub Pages 发布。
+简洁的个人主页，参考 NOVAglow646 的学术主页版式。使用纯 HTML、CSS 和 JavaScript，由 GitHub Pages 发布。
+
+网站：https://shaye316.github.io/
 
 ## 本地预览
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8765
 ```
 
-然后访问 <http://localhost:8000>。
+打开 http://localhost:8765/。
 
-## 修改内容
+## 内容维护
 
-- `index.html`：个人介绍、项目、笔记和链接
-- `assets/styles.css`：页面样式
-- `assets/script.js`：导航交互和年份
+- `index.html`：个人介绍、项目经历、教育背景
+- `blog/index.html`：博客入口，当前暂无文章
+- `assets/styles.css`：白底、窄版正文和顶部导航样式
+- `assets/script.js`：当前章节导航和页脚年份
 
-头像当前读取 `https://github.com/Shaye316.png`，也可以换成仓库里的本地图片。
+更改后提交并推送到 `main`，GitHub Pages 会自动更新。没有前端构建依赖。

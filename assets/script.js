@@ -1,25 +1,18 @@
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.site-nav');
-const navLinks = [...document.querySelectorAll('.nav-link')];
-const sections = [...document.querySelectorAll('.section-anchor')];
+const year = document.querySelector('#year');
+if (year) year.textContent = new Date().getFullYear();
 
-document.querySelector('#year').textContent = new Date().getFullYear();
-
-menuToggle?.addEventListener('click', () => {
-  const open = nav.classList.toggle('is-open');
-  menuToggle.setAttribute('aria-expanded', String(open));
-});
-
-navLinks.forEach(link => link.addEventListener('click', () => {
-  nav.classList.remove('is-open');
-  menuToggle?.setAttribute('aria-expanded', 'false');
-}));
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const active = navLinks.find(link => link.getAttribute('href') === `#${entry.target.id}`);
-    navLinks.forEach(link => link.classList.toggle('is-active', link === active));
+const sectionLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+const sections = sectionLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+function updateActiveSection() {
+  const active = sections.filter(section => section.getBoundingClientRect().top <= 120).at(-1) || sections[0];
+  sectionLinks.forEach(link => {
+    const selected = active && link.getAttribute('href') === `#${active.id}`;
+    link.classList.toggle('active', Boolean(selected));
+    if (selected) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
   });
-}, { rootMargin: '-25% 0px -65% 0px' });
-sections.forEach(section => observer.observe(section));
+}
+if (sections.length) {
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
+}
